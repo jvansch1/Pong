@@ -3,6 +3,20 @@ from screen import Screen
 from ball import Ball
 from paddle import Paddle
 
+def handle_key_presses(paddle_one_y, paddle_two_y):
+    keys = pygame.key.get_pressed()
+
+    if keys[pygame.K_UP]:
+        paddle_one_y -= 20
+    elif keys[pygame.K_DOWN]:
+        paddle_one_y += 20
+
+    if keys[pygame.K_w]:
+        paddle_two_y -= 20
+    elif keys[pygame.K_s]:
+        paddle_two_y += 20
+
+    return (paddle_one_y, paddle_two_y)
 
 def main():
     width = 1000
@@ -22,6 +36,8 @@ def main():
     ball_y = int(height / 2)
     ball_x_delta = 20
     ball_y_delta = 15
+    paddle_one_y = 50
+    paddle_two_y = 50
 
     ball = Ball(screen.screen, 10)
 
@@ -34,9 +50,11 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT: sys.exit()
 
+        paddle_one_y, paddle_two_y = handle_key_presses(paddle_one_y, paddle_two_y)
+
         screen.fill_screen(black)
-        paddle_one.draw_paddle(20, 50)
-        paddle_one.draw_paddle(960, 50)
+        paddle_one.draw_paddle(20, paddle_one_y)
+        paddle_one.draw_paddle(960, paddle_two_y)
         screen.add_with_blit(surface, width / 2, 0)
         ball_x += ball_x_delta
         ball_y += ball_y_delta
