@@ -28,6 +28,12 @@ def main():
     height = 800
     size = width, height
     pygame.init()
+    pygame.font.init()
+
+    score_font = pygame.font.SysFont("Comic Sans MS", 30)
+    player_one_score = 0
+    player_two_score = 0
+
     black = 0,0,0
     white = 255,255,255
 
@@ -50,13 +56,24 @@ def main():
 
         handle_key_presses(paddle_one, paddle_two)
 
+        # Handle drawing all elements to the screen and detecting collision
+        player_one_score_surface = score_font.render("{player_one_score}".format(player_one_score=player_one_score),
+                                                     False, (255, 255, 255))
+        player_two_score_surface = score_font.render("{player_two_score}".format(player_two_score=player_two_score),
+                                                     False, (255, 255, 255))
         screen.fill_screen(black)
         paddle_one.draw_paddle()
         paddle_two.draw_paddle()
         screen.add_with_blit(surface, width / 2, 0)
-
+        screen.add_with_blit(player_one_score_surface, 10, 10)
+        screen.add_with_blit(player_two_score_surface, width - 25, 10)
         ball.draw_ball()
         check_for_collision(paddle_one, paddle_two, ball)
+        scored = ball.check_out_of_bounds()
+        if scored == 1:
+            player_one_score += 1
+        elif scored == 2:
+            player_two_score += 1
         pygame.display.update()
 
 main()

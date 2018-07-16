@@ -17,13 +17,19 @@ class Ball():
         pygame.draw.circle(self.surface, (255,255,255), (self.x, self.y), 10)
 
     def handle_x_pos(self):
-        if self.x > (980):
-            self.ball_x_delta = -20
-
-        if self.x < 20:
-            self.ball_x_delta += 20
-
         self.x += self.ball_x_delta
+
+    def check_out_of_bounds(self):
+        # will return the number of the player who has scored
+        if self.x > 980:
+            self.x = 500
+            self.y = 500
+            return 1
+        elif self.x < 20:
+            self.x = 500
+            self.y = 500
+            return 2
+
 
     def handle_y_pos(self):
         if self.y > (780):
