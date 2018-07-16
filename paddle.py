@@ -18,3 +18,15 @@ class Paddle():
 
     def incriment_paddle_y(self):
         self.y += 20
+
+    def y_value(self):
+        return self.y
+
+    def x_value(self):
+        return self.x
+
+    def check_for_collision(self, ball_x, ball_y, paddle):
+        if paddle == "paddle_one" and (ball_x < self.x + 30) and (ball_y < self.y + 100):
+            return True
+        elif paddle == "paddle_two" and (ball_x > self.x - 20) and (ball_y < self.y + 100):
+            return True

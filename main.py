@@ -3,6 +3,13 @@ from screen import Screen
 from ball import Ball
 from paddle import Paddle
 
+def check_for_collision(paddle_one, paddle_two, ball):
+    ball_x = ball.x_value()
+    ball_y = ball.y_value()
+
+    if paddle_one.check_for_collision(ball_x, ball_y, "paddle_one") or paddle_two.check_for_collision(ball_x, ball_y, "paddle_two"):
+        ball.invert_x_delta()
+
 def handle_key_presses(paddle_one, paddle_two):
     keys = pygame.key.get_pressed()
 
@@ -32,8 +39,8 @@ def main():
 
     ball = Ball(screen.screen, 10)
 
-    paddle_one = Paddle(screen, 20, 50)
-    paddle_two = Paddle(screen, 960, 50)
+    paddle_one = Paddle(screen, 100, 50)
+    paddle_two = Paddle(screen, 900, 50)
 
     screen.add_with_blit(surface, width / 2, 0)
 
@@ -49,6 +56,7 @@ def main():
         screen.add_with_blit(surface, width / 2, 0)
 
         ball.draw_ball()
+        check_for_collision(paddle_one, paddle_two, ball)
         pygame.display.update()
 
 main()

@@ -33,3 +33,12 @@ class Ball():
             self.ball_y_delta += 20
 
         self.y += self.ball_y_delta
+
+    def y_value(self):
+        return self.y
+
+    def x_value(self):
+        return self.x
+
+    def invert_x_delta(self):
+        self.ball_x_delta = -self.ball_x_delta
