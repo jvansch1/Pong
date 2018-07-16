@@ -7,8 +7,8 @@ class Ball():
         self.surface = surface
         self.x = 500
         self.y = 500
-        self.ball_x_delta = 20
-        self.ball_y_delta = 20
+        self.ball_x_delta = 15
+        self.ball_y_delta = 15
 
 
     def draw_ball(self):
@@ -33,10 +33,10 @@ class Ball():
 
     def handle_y_pos(self):
         if self.y > (780):
-            self.ball_y_delta = -20
+            self.ball_y_delta = -15
 
         if self.y < 20:
-            self.ball_y_delta += 20
+            self.ball_y_delta += 15
 
         self.y += self.ball_y_delta
 
