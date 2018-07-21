@@ -30,8 +30,9 @@ class Paddle():
     def x_value(self):
         return self.x
 
-    def check_for_collision(self, ball_x, ball_y, paddle):
-        if paddle == "paddle_one" and ((ball_x < self.x + 30)) and (ball_y < self.y + 100):
+    def check_for_collision(self, ball_x, ball_y, paddle, ball_x_delta):
+        if (paddle == "paddle_one" and (ball_x <= self.x + 20  + (-ball_x_delta / 2)) and (ball_y <= self.y + 100 and ball_y >= self.y)):
             return True
-        elif paddle == "paddle_two" and (ball_x > self.x - 25) and (ball_y < self.y + 100):
+        elif (paddle == "paddle_two" and (ball_x >= self.x - (ball_x_delta / 2)) and (ball_y < self.y + 100 and ball_y >= self.y)):
             return True
+

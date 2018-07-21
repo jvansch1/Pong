@@ -6,7 +6,7 @@ class Ball():
         self.radius = radius
         self.surface = surface
         self.x = 500
-        self.y = 500
+        self.y = 400
         self.ball_x_delta = 15
         self.ball_y_delta = 15
 
@@ -21,13 +21,15 @@ class Ball():
 
     def check_out_of_bounds(self):
         # will return the number of the player who has scored
-        if self.x > 980:
+        if self.x > 1000:
             self.x = 500
-            self.y = 500
+            self.y = 400
+            self.draw_ball()
             return 1
-        elif self.x < 20:
+        elif self.x < -10:
             self.x = 500
-            self.y = 500
+            self.y = 400
+            self.draw_ball()
             return 2
 
 
@@ -48,3 +50,23 @@ class Ball():
 
     def invert_x_delta(self):
         self.ball_x_delta = -self.ball_x_delta
+
+    def incriment_x_delta(self):
+        if self.ball_x_delta > 0:
+            self.ball_x_delta += 1
+        else:
+            self.ball_x_delta -= 1
+
+    def incriment_y_delta(self):
+        if self.ball_y_delta > 0:
+            self.ball_y_delta += 1
+        else:
+            self.ball_x_delta -= 1
+
+    def increase_speed(self):
+        self.incriment_x_delta()
+        self.incriment_y_delta()
+
+    def reset_speed(self):
+        self.ball_x_delta = 15
+        self.ball_y_delta = 15

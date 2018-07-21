@@ -30,8 +30,9 @@ def check_for_collision(paddle_one, paddle_two, ball):
     ball_x = ball.x_value()
     ball_y = ball.y_value()
 
-    if paddle_one.check_for_collision(ball_x, ball_y, "paddle_one") or paddle_two.check_for_collision(ball_x, ball_y, "paddle_two"):
+    if paddle_one.check_for_collision(ball_x, ball_y, "paddle_one", ball.ball_x_delta) or paddle_two.check_for_collision(ball_x, ball_y, "paddle_two", ball.ball_x_delta):
         ball.invert_x_delta()
+        ball.increase_speed()
 
 def handle_key_presses(paddle_one, paddle_two):
     keys = pygame.key.get_pressed()
@@ -53,7 +54,7 @@ def main():
     pygame.init()
     pygame.font.init()
 
-    count_down_font = pygame.font.SysFont("Comic Sans MS", 30)
+    count_down_font = pygame.font.SysFont("Comic Sans MS", 100)
     player_one_score = 0
     player_two_score = 0
 
@@ -68,8 +69,8 @@ def main():
 
     ball = Ball(screen.screen, 10)
 
-    paddle_one = Paddle(screen, 100, 50)
-    paddle_two = Paddle(screen, 900, 50)
+    paddle_one = Paddle(screen, 20, 50)
+    paddle_two = Paddle(screen, 960, 50)
 
     entities = {
         "screen": screen,
@@ -92,16 +93,36 @@ def main():
         game_loop(entities)
         scored = ball.check_out_of_bounds()
 
-        if scored == 1:
-            player_one_score += 1
-        elif scored == 2:
-            player_two_score += 1
+        if scored:
+            ball.reset_speed()
+
+            if scored == 1:
+                player_one_score += 1
+            elif scored == 2:
+                player_two_score += 1
 
         pygame.display.update()
 
         # Place after update so ball can be reset to center and then pause
-        # if scored:
-            # pygame.time.delay(1000)
+        if scored:
+            ball.ball_x_delta = 0
+            ball.ball_y_delta = 0
+
+            while count_down_value > 0:
+                render_surfaces(entities["screen"], entities["paddle_one"], entities["paddle_two"], entities["ball"], entities["mid_line"], entities["width"])
+                render_scores(entities["screen"], entities["player_one_score"], entities["player_two_score"])
+                count_down_surface = count_down_font.render(
+                    "{count_down_value}".format(count_down_value=count_down_value),
+                    False, (255, 255, 255))
+                screen.add_with_blit(count_down_surface, width / 2, height / 2)
+                pygame.display.update()
+                pygame.time.delay(1000)
+                count_down_value -= 1
+
+            count_down_value = 3
+            ball.ball_x_delta = 15
+            ball.ball_y_delta = 15
+
 
 
 main()
