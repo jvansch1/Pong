@@ -13,16 +13,16 @@ class Paddle():
         self.screen.add_with_blit(surface, self.x, self.y)
 
     def decrement_paddle_y(self):
-        if self.y < 0:
+        if self.y <= 0:
             pass
         else:
-            self.y -= 20
+            self.y -= 25
 
     def incriment_paddle_y(self):
-        if self.y > self.screen.height - 100:
+        if self.y >= self.screen.height - 100:
             pass
         else:
-            self.y += 20
+            self.y += 25
 
     def y_value(self):
         return self.y
