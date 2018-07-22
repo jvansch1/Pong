@@ -1,5 +1,5 @@
-import sys, pygame
-from game import Game
+import pygame
+from src.game import Game
 
 def main():
     pygame.init()

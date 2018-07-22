@@ -1,6 +1,6 @@
-from screen import Screen
-from ball import Ball
-from paddle import Paddle
+from src.screen import Screen
+from src.ball import Ball
+from src.paddle import Paddle
 import sys, pygame
 
 class Game:
