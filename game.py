@@ -100,8 +100,9 @@ class Game:
                                           ball.ball_x_delta) or paddle_two.check_for_collision(ball_x, ball_y,
                                                                                                "paddle_two",
                                                                                                ball.ball_x_delta):
-            ball.invert_x_delta()
             ball.increase_speed()
+            ball.invert_x_delta()
+
 
     def handle_point_scored(self, entities, count_down_font, width, height, count_down_value):
         self.render_surfaces(entities["screen"], entities["paddle_one"], entities["paddle_two"], entities["ball"],
